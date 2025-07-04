@@ -1,0 +1,38 @@
+name: Deploy to Databricks via YAML
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Get Databricks Token from Key Vault
+      id: kv
+      run: |
+        token=$(az keyvault secret show --name ADB-TOKEN --vault-name adb-kv-dev --query value -o tsv)
+        echo "::add-mask::$token"
+        echo "DATABRICKS_TOKEN=$token" >> $GITHUB_ENV
+
+    - name: Install Databricks CLI
+      run: |
+        pip install databricks-cli --upgrade
+        databricks configure --token <<EOF
+        https://adb-113488527594700.0.azuredatabricks.net
+        $DATABRICKS_TOKEN
+        EOF
+
+    - name: Deploy resources using YAML
+      run: |
+        databricks workspace import-dir notebooks /Workspace/Shared --overwrite
+        databricks deploy --files databricks.yml
