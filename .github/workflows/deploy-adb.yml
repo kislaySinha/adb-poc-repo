@@ -35,6 +35,7 @@ jobs:
         DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
         DATABRICKS_HOST: ${{ env.DATABRICKS_HOST }}
       run: |
+        which databricks
         databricks bundle validate
         databricks bundle deploy
 
