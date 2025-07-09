@@ -31,6 +31,9 @@ jobs:
         echo "$HOME/.local/bin" >> $GITHUB_PATH
         
     - name: Deploy asset bundle
+      env:
+        DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
+        DATABRICKS_HOST: ${{ env.DATABRICKS_HOST }}
       run: |
         databricks bundle validate
         databricks bundle deploy
