@@ -26,9 +26,10 @@ jobs:
         echo "DATABRICKS_HOST=https://adb-113488527594700.0.azuredatabricks.net" >> $GITHUB_ENV
 
     - name: Install Databricks CLI (v0.205+)
-      run: pip install databricks
+      run: |
+        pip install databricks
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
         
-
     - name: Deploy asset bundle
       run: |
         databricks bundle validate
