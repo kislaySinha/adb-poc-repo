@@ -23,16 +23,14 @@ jobs:
         token=$(az keyvault secret show --name ADB-TOKEN --vault-name adb-kv-dev --query value -o tsv)
         echo "::add-mask::$token"
         echo "DATABRICKS_TOKEN=$token" >> $GITHUB_ENV
+        echo "DATABRICKS_HOST=https://adb-113488527594700.0.azuredatabricks.net" >> $GITHUB_ENV
 
-    - name: Install Databricks CLI
-      run: |
-        pip install databricks-cli --upgrade
-        databricks configure --token <<EOF
-        https://adb-113488527594700.0.azuredatabricks.net
-        $DATABRICKS_TOKEN
-        EOF
+    - name: Install Databricks CLI (v0.205+)
+      run: pip install "databricks-cli>=0.205"
+        
 
-    - name: Deploy resources using YAML
+    - name: Deploy asset bundle
       run: |
-        databricks workspace import-dir notebooks /Workspace/Shared --overwrite
-        databricks deploy --files databricks.yml
+        databricks bundle validate
+        databricks bundle deploy
+

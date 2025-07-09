@@ -1,11 +1,17 @@
+bundle:
+  name: hello-world-bundle
+
+workspace:
+  host: https://adb-113488527594700.0.azuredatabricks.net
+
 resources:
   jobs:
-    hello-world-job:
-      name: hello-world-job
+    hello-job:
+      name: hello-job
       tasks:
-        - task_key: notebook-task
+        - task_key: run-hello
           notebook_task:
-            notebook_path: /Workspace/Shared/hello.py
+            notebook_path: ./notebooks/hello.py
           new_cluster:
             spark_version: 12.2.x-scala2.12
             node_type_id: Standard_DS3_v2
