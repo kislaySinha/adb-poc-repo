@@ -25,10 +25,10 @@ jobs:
         echo "DATABRICKS_TOKEN=$token" >> $GITHUB_ENV
         echo "DATABRICKS_HOST=https://adb-113488527594700.0.azuredatabricks.net" >> $GITHUB_ENV
 
-    - name: Install Databricks CLI (v0.205+)
+    - name: Install Databricks CLI v0.205+ and Add to PATH
       run: |
-        pip install databricks
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        pip install --user databricks
+        echo "$(python3 -m site --user-base)/bin" >> $GITHUB_PATH
         
     - name: Deploy asset bundle
       env:
