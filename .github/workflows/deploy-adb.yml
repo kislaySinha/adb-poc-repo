@@ -39,3 +39,4 @@ jobs:
       run: |
         databricks bundle validate
         databricks bundle deploy
+        databricks bundle run hello-job
