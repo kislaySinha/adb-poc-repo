@@ -11,7 +11,7 @@ resources:
       tasks:
         - task_key: run-hello
           notebook_task:
-            notebook_path: ./notebooks/hello.py
+            notebook_path: ./notebooks/hello.ipynb
           new_cluster:
             spark_version: 12.2.x-scala2.12
             node_type_id: Standard_DS3_v2
