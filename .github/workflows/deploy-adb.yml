@@ -37,5 +37,5 @@ jobs:
         DATABRICKS_TOKEN: ${{ env.DATABRICKS_TOKEN }}
         DATABRICKS_HOST: ${{ env.DATABRICKS_HOST }}
       run: |
-        python3 -m databricks bundle validate
-        python3 -m databricks bundle deploy
+        ~/.local/bin/databricks bundle validate
+        ~/.local/bin/databricks bundle deploy
