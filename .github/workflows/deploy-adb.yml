@@ -31,9 +31,6 @@ jobs:
       run: |
         pip install --user databricks
         echo "$(python3 -m site --user-base)/bin" >> $GITHUB_PATH
-        export PATH="$(python3 -m site --user-base)/bin:$PATH"
-        which databricks
-        databricks --version
 
     - name: Deploy asset bundle
       env:
