@@ -1,6 +1,5 @@
 bundle:
   name: hello-world-bundle
-
 workspace:
   host: https://adb-113488527594700.0.azuredatabricks.net
 
